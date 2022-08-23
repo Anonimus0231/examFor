@@ -2,7 +2,6 @@ import './App.css';
 import Header from './components/Header/Header';
 import AddTodo from './components/AddTodo/AddTodo';
 import TodoList from './components/TodoList/TodoList';
-import FunctionAxsios from './components/pisa/FunctionAxios';
 import { useState } from 'react';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
       <Header />
       <AddTodo todo={todo}  setTodo={setTodo} />
       <TodoList todo={todo} setTodo={setTodo} />
-      {/* <FunctionAxsios todo={todo} setTodo={setTodo} /> */}
     </div>
   );
 }
