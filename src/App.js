@@ -6,17 +6,19 @@ import { useState } from 'react';
 
 function App() {
 
-  const [todo, setTodo] = useState([
-
-  ])
+  const [messag, setMessag] = useState([])
+  const [inputs, setInputs] = useState({
+    title: "",
+    status: "",
+})
 
   
 
   return (
     <div className="App">
       <Header />
-      <AddTodo todo={todo}  setTodo={setTodo} />
-      <TodoList todo={todo} setTodo={setTodo} />
+      <AddTodo  messag={messag}  setMessag={setMessag} inputs={inputs} setInputs={setInputs}/>
+      <TodoList messag={messag}  setMessag={setMessag} inputs={inputs} setInputs={setInputs}/>
     </div>
   );
 }

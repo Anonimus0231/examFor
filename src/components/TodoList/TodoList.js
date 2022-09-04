@@ -1,57 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
+import axios from "axios"
 
-function TodoList({todo, setTodo}) {
+function TodoList({ messag, setMessag, inputs, setInputs }) {
     const [edit, setEdit] = useState(null)
-    const [value, setValue] = useState('')
 
-    function deliteTodo(id) {
-        let newTodo = [...todo].filter(item => item.id!=id)
-        setTodo(newTodo)
+    useEffect(() => {
+        getPosts()
+    }, []) 
+    
+    async function getPosts(){
+        await axios.get("http://localhost:505/item")
+        .then(res => setMessag(res.data))
     }
 
-    function editTodo(id, title) {
+    async function deletePosts(id){
+        await axios.delete(`http://localhost:505/item/${id}`)
+        .then(getPosts())
+    }
+
+    async function setPost(id, obj){
+        await axios.patch(`http://localhost:505/item/${id}`, obj)
+        .then(getPosts())
+    }
+    
+    function editMessag(id, title) {
         setEdit(id)
-        setValue(title)
+        setInputs({...inputs, title: title})
     }
 
-    function saveTodo(id) {
-        
-        let newTodo = [...todo].map(item => {
-            if(item.id == id) {
-                item.title = value
-            }
-            return item
-        })
-        setTodo(newTodo)
-        setEdit(null)
+    function savePost(id, title) {
+        setPost(id, {title:title})
+        getPosts()
     }
 
     return(
         <div>
             {
-                todo.map(item => (
-                    <div key={item.id}> 
-                        {
-                            edit ==item.id ? 
-                            <div>
-                                <input onChange={(e)=> setValue(e.target.value)} value={value}/>
-                            </div>
-                            :
-                        <div>{item.title}</div>
-                        }
-
-                        {
+                messag?.map(item => (
+                <div key={item.id}>
+                    {
+                        edit ==item.id ? 
+                        <div>
+                            <input value={inputs.title} onChange={(e) => setInputs({...inputs, title: e.target.value})}/>
+                        </div>
+                        :
+                    <div>{item.title}</div>
+                    }
+                    {
                         edit ==item.id ? 
                             <div>
-                                <button onClick={()=>saveTodo(item.id)}>Saveeee</button>
+                                <button onClick={() => {savePost(item.id, inputs.title)}}>Saveeee</button>
                             </div>
                             :
                         <div>
-                            <button onClick={ () => deliteTodo(item.id)}>delete</button>
-                            <button onClick={ () => editTodo(item.id, item.title)}>redaction</button>
+                            <button onClick={ () => deletePosts(item.id)}>delete</button>
+                            <button onClick={ () => {editMessag(item.id, item.title)}}>redaction</button>
                         </div>
                         }
-                    </div>
+                </div>
                 ))
             }
         </div>
