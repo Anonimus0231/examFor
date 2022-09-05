@@ -1,8 +1,13 @@
 import React from 'react'
+import style from './style_module.css'
+
+
 
 function Header() {
     return (
-        <div>Todo List</div>
+        <header className='header' >
+            <div className="header__title">Todo List</div>
+        </header>
     )
 }
 

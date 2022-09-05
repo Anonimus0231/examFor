@@ -1,0 +1,27 @@
+.todos__input {
+    max-width: 300px;
+    min-width: 100px;
+    border: none;
+    padding: 5px;
+    border-radius: 50px;
+    
+}
+
+.todo__cont-btn {
+    margin: 10px auto;
+    height: 50px;
+    width: 400px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.todo__cont-btn:nth-child(2n) {
+        background-color: rgb(250, 230, 99);
+}
+
+.todo__svg-btn {
+    fill: #91910d;
+}
